@@ -1,54 +1,43 @@
-var ball,img,paddle;
-function preload() {
-   paddleImage = loadImage("paddle.png")
-  ballImage = loadImage("ball.png")
- 
-}
-function setup() {
-  createCanvas(400, 400);
- 
-  paddle = createSprite(380,200,20,20)
-  paddle.addImage("paddle",paddleImage)
-   ball = createSprite(200,200,20,20)
-  ball.addImage("ball",ballImage)
-  
-  ball.velocityX = -9;
-  
 
+var car,wall
+var speed,weight
+
+
+
+
+function setup() {
+  createCanvas(800,400);
+ // createSprite(400, 200, 50, 50);
+  speed =random(55,90)
+  weight =random(440,1500)
+  car=createSprite(50,200,50,50)
+  wall=createSprite(500,200,60,height/2)
+
+ 
 }
 
 function draw() {
-  background(205,153,0);
-  edges = createEdgeSprites();
-  
-  ball.bounceOff(edges[0]);
-  ball.bounceOff(edges[2]);
-  ball.bounceOff(edges[3]);
-  ball.bounceOff(paddle,randomVelocity);
-  
-  
+  background(255,255,255);  
+  car. velocityX = speed;
 
+
+  if (wall.x-car.x<(car.width+wall.width)/2){
+
+car.velocityX = 0;
+var d = 0.5*weight*speed*speed/22500;
+if (d>180){
+  car.shapeColor = "red"
+}
+if (d>180 && d<100){
+  car.shapeColor = "yellow"
+}
+
+if (d<100){
+  car.shapeColor ="green"
+}
+}
  
-  paddle.collide(edges);
-  
-  
-  
-  if(keyDown(UP_ARROW))
-  {
-    paddle.y = paddle.y -10;
-  }
-  
-  if(keyDown(DOWN_ARROW))
-  {
-   paddle.y = paddle.y +10;
-  }
   drawSprites();
-  
 }
 
-function randomVelocity()
-{
-  ball.velocityY = random(-9,9)
- 
-}
 
